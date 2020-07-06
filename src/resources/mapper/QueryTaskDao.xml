@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.uk.dao.QueryTaskDao">
+
+	<select id="getHisPlanTotal" parameterType="java.util.HashMap" resultType="int">
+
+		select
+		count(1)
+		from t_ig_his_plan t1 left join t_ig_plan t2 on t1.plan_no=t2.plan_no
+		where 1=1
+		<if test="startTime != null or startTime != ''">
+			and t1.run_time &gt; #{startTime}
+		</if>
+		<if test="endTime != null or endTime != ''">
+			and t1.finish_time &lt; #{endTime}
+		</if>
+
+	</select>
+
+	<select id="queryCamera" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+		select
+			 t1.his_plan_id as	id,
+			 t2.plan_name as name,
+			 t1.run_time as  runTime,
+			t1.finish_time as  finishTime,
+			t1.alarm_cnt as	alarmCount
+		from t_ig_his_plan t1 left join t_ig_plan t2 on t1.plan_no=t2.plan_no
+		where 1=1
+		<if test="startTime != null or startTime != ''">
+			and t1.run_time &gt; #{startTime}
+		</if>
+		<if test="endTime != null or endTime != ''">
+			and t1.finish_time &lt; #{endTime}
+		</if>
+		limit ${(pageIndex-1)*pageSize},${pageSize};
+
+
+
+	</select>
+
+	<select id="getHisPlanDetailTotal" parameterType="java.util.HashMap" resultType="int">
+		select
+		count(1)
+
+		from t_ig_his_plan_item t1
+		left join t_ig_plan t2 on t1.plan_no=t2.plan_no
+		left join t_ig_his_plan t3 on t1.his_plan_id= t3.his_plan_id
+		where 1=1
+		<if test="id != null or id != ''">
+			and t3.his_plan_id = #{id}
+		</if>
+
+	</select>
+	<select id="queryTaskDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+		select
+			t1.run_time as runTime,
+			t2.plan_name as name,
+			 t3.run_time as  runtime,
+			t1.svalue as value,
+			t1.result_desc as resultDesc,
+			t1.pic_url as picUrl,
+			t1.video_url as videoUrl,
+			t1.alarm_pic_urls as alarmPicUrl
+
+			from t_ig_his_plan_item t1
+			left join t_ig_plan t2 on t1.plan_no=t2.plan_no
+			left join t_ig_his_plan t3 on t1.his_plan_id= t3.his_plan_id
+		where 1=1
+		<if test="id != null or id != ''">
+			and t3.his_plan_id = #{id}
+		</if>
+		limit ${(pageIndex-1)*pageSize},${pageSize};
+
+
+	</select>
+
+	<select id="queryprojectTotal" parameterType="java.util.HashMap" resultType="int">
+
+		SELECT
+		count(1)
+		from  t_ig_project
+		where 1=1
+		<if test="projectNo != null or projectNo != ''">
+			and project_no = #{projectNo}
+		</if>
+
+	</select>
+	<select id="queryproject" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+
+		SELECT
+			project_no as  projectNo,
+			project_name as projectName
+			from  t_ig_project
+		where 1=1
+		<if test="projectNo != null or projectNo != ''">
+			and project_no = #{projectNo}
+		</if>
+		limit ${(pageIndex-1)*pageSize},${pageSize};
+	</select>
+
+	<select id="queryprojectDetailTotal" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+		count(1)
+		from t_ig_project_item t1
+		where 1=1
+		<if test="projectNo != null or projectNo != ''">
+			and t1.project_no = #{projectNo}
+		</if>
+	</select>
+	<select id="queryprojectDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+		t1.item_no as  itemNo,
+		t1.item_name as itemName,
+		t1.camera_no as cameraNo,
+		t1.preset_no as presetNo,
+		t1.act_no as actType,
+		t1.act_params as actParams
+		from t_ig_project_item t1
+		where 1=1
+		<if test="projectNo != null or projectNo != ''">
+			and t1.project_no = #{projectNo}
+		</if>
+		limit ${(pageIndex-1)*pageSize},${pageSize};
+	</select>
+	<select id="queryplanTotal" parameterType="java.util.HashMap" resultType="int">
+		select
+			count(1)
+			from t_ig_plan
+	</select>
+	<select id="queryplan" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+		select
+			t.plan_no as planNo,
+			t.plan_name as planName,
+			t.project_no as  projectNo,
+			t.plan_time as planTime,
+			t.enabled as enabled
+
+			from t_ig_plan t
+		limit ${(pageIndex-1)*pageSize},${pageSize};
+	</select>
+
+	<insert id="addProject" parameterType="java.util.HashMap" >
+		insert into t_ig_project (project_no,project_name) values(#{projectNo},#{projectName})
+	</insert>
+	<update id="updateProject" parameterType="java.util.HashMap">
+		update t_ig_project set  project_name = #{projectName}
+		where project_no = #{projectNo}
+	</update>
+	<select id="searchProject" parameterType="java.util.HashMap" resultType="int">
+		select count(1) from t_ig_project where project_no = #{projectNo}
+	</select>
+
+	<insert id="addSetprojectdetail" parameterType="java.util.HashMap" >
+		insert into t_ig_project_item (project_no,item_no,item_name,camera_no,preset_no,act_type,act_params,act_no)
+		values( #{projectNo},#{itemNo},#{itemName},#{cameraNo},#{presetNo},#{actType},#{actParams},0)
+	</insert>
+	<update id="updateSetprojectdetail" parameterType="java.util.HashMap">
+		update t_ig_project_item set
+		item_name = #{itemName},
+		camera_no = #{cameraNo},
+		preset_no = #{presetNo},
+		act_type = #{actType},
+		act_params = #{actParams}
+		where project_no = #{projectNo} and item_no = #{itemNo}
+	</update>
+	<select id="searchSetprojectdetail" parameterType="java.util.HashMap" resultType="int">
+		select count(1) from t_ig_project_item where project_no = #{projectNo} and item_no = #{itemNo}
+	</select>
+
+
+	<insert id="addSetplan" parameterType="java.util.HashMap" >
+		insert into t_ig_plan (plan_name,project_no,plan_time,plan_no)
+		values( #{planName},#{projectNo},DATE_FORMAT(#{runtime}, '%H:%i:%s') ,#{planNo})
+	</insert>
+	<update id="updateSetplan" parameterType="java.util.HashMap">
+		update t_ig_plan set
+		plan_name = #{planName},
+		project_no = #{projectNo},
+		<![CDATA[ plan_time =  DATE_FORMAT(#{runtime}, '%H:%i:%s')  ]]>
+		where plan_no = #{planNo}
+	</update>
+	<select id="searchSetplan" parameterType="java.util.HashMap" resultType="int">
+		select count(1) from t_ig_plan where  plan_no = #{planNo}
+	</select>
+
+	<delete id="deleteProject" parameterType="java.util.HashMap" >
+		delete from t_ig_project where project_no = #{projectNo}
+	</delete>
+	<delete id="deleteProjectItem"  parameterType="java.util.HashMap" >
+
+		delete from t_ig_project_item where project_no = #{projectNo}
+		<if test="itemNo !=null and itemNo != ''">
+			and item_no = #{itemNo}
+		</if>
+
+	</delete>
+	<delete id="deletePlan"  parameterType="java.util.HashMap" >
+		delete from t_ig_plan where plan_no = #{planNo}
+
+	</delete>
+	<delete id="deleteHisPlan"  parameterType="java.util.HashMap" >
+		delete from t_ig_his_plan where plan_no = #{planNo}
+
+	</delete>
+	<delete id="deleteHisPlanItem"  parameterType="java.util.HashMap" >
+		delete from t_ig_his_plan_item where plan_no = #{planNo}
+
+	</delete>
+
+
+	<select id="getDeviceListByType" parameterType="java.util.HashMap" resultType="com.cn.uk.dto.CameraRelatedDto.Camera">
+		select * from t_ig_camera
+		limit ${fromIndex},${toIndex}
+	</select>
+
+	<select id="getSubstation" resultType="java.util.HashMap">
+		select IFNULL(name,'') as substation,IFNULL(id,'') as sub_no  from t_ig_station
+	</select>
+	<select id="getNvrCode" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+		select IFNULL(t.nvr_no,'') as t_nvr_no  from t_ig_nvr t left join t_ig_nvr_channel t1 on t.nvr_no =t1.nvr_no
+		 left join t_ig_camera t2 on t1.camera_no =t2.camera_no where t2.camera_no =#{camera_no}
+
+	</select>
+
+	<select id="getTotal"  parameterType="java.util.HashMap"   resultType="int">
+		select count(1) from t_ig_camera
+		limit ${fromIndex},${toIndex}
+	</select>
+
+	<select id="getCamera" resultType="com.cn.uk.dto.CameraRelatedDto.Camera">
+		select * from t_ig_camera
+	</select>
+	<select id="getDevicePoints" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select t.deviceID,t1.recognition_type,t1.meter_type,t.name,t.id from t_ig_devicepoint t
+		left join t_ig_action t1 on t.id = t1.devpointID
+		 left join t_ig_camera_preset  t2 on t2.devicepoint_id = t.ID
+		 where t2.camera_no = #{camera_code}
+
+	</select>
+
+	<select id="getPresetttings" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select t.camera_no,t.preset_no,t.preset_name,t1.act_key from t_ig_camera_preset t left join t_ig_project_item t1 on
+		 t.camera_no = t1.camera_no and t.preset_no=t1.preset_no  where t.camera_no =#{camera_code} and t1.act_key !=''
+	</select>
+
+
+	<select id="queryPlanItemByNo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from t_ig_his_plan_item where plan_no in
+		(select plan_no from t_ig_plan where 1=1
+        <if test="prodPlanId!=null and prodPlanId !=''">
+            and prod_plan_id =#{prodPlanId}
+        </if>
+
+		)
+
+	</select>
+
+	<select id="queryPlanDefeatByNo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select * from t_ig_his_defect where plan_no in
+        (select plan_no from t_ig_plan where 1=1
+        <if test="prodPlanId!=null and prodPlanId !=''">
+            and prod_plan_id =#{prodPlanId}
+        </if>
+
+        )
+
+	</select>
+
+	<select id="getCameraAndProjectItem" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+
+		SELECT t1.*, t2.devicepoint_id, t3.name,t2.deviceID FROM (SELECT item_no, item_name, bay_id, camera_no, preset_no, act_no, act_type, act_params, act_key, meter_type FROM t_ig_project_item WHERE project_no=1) as t1
+		 LEFT JOIN t_ig_camera_preset t2 ON t1.camera_no = t2.camera_no and t1.preset_no = t2.preset_no
+		 LEFT JOIN t_ig_devicepoint t3 ON t2.devicepoint_id = t3.ID
+		where t1.item_no = #{item_no}
+	</select>
+
+	<select id="getMaxTime" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select max(run_time) as maxTime from t_ig_his_plan_item
+		where 1=1
+		<if test="item_no != null and item_no !=''">
+			and item_no =#{item_no}
+		</if>
+		<if test="his_plan_id != null and his_plan_id !=''">
+			and his_plan_id =#{his_plan_id}
+		</if>
+	</select>
+	<select id="getMinTime" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select min(run_time) as minTime from t_ig_his_plan_item
+		where 1=1
+		<if test="item_no != null and item_no !=''">
+			and item_no =#{item_no}
+		</if>
+		<if test="his_plan_id != null and his_plan_id !=''">
+			and his_plan_id =#{his_plan_id}
+		</if>
+	</select>
+
+
+	<select id="findAll" parameterType="java.util.HashMap" resultType="com.cn.uk.dto.MainConfig">
+		select ID,valid,objectid,name,memo,strValue,intValue,parent,class,subclass,sibling from man_config
+		where 1=1
+		<if test="parent != null and parent!=''" >
+			and  parent=#{parent}
+		</if>
+	</select>
+    <select id="queryName" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select alarm_name from t_ig_alarm_define where 1=1
+        <if test="msgType!= null and msgType !=''">
+            and alarm_key =#{msgType}
+        </if>
+    </select>
+
+	<insert id="insertHisDhData" parameterType="java.util.HashMap">
+		insert into t_ig_send_his_dhdata (sn,deviceID,createdTm,deviceItem)
+		values (#{sn},#{deviceID},#{createdTm},#{deviceItem})
+	</insert>
+
+	<select id="findAllDeviceIds" resultType="java.util.HashMap">
+		select  deviceID,sn,createdTm from t_ig_send_his_dhdata GROUP BY deviceID
+	</select>
+
+	<select id="queryDhHisData" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from t_ig_send_his_dhdata where deviceID = #{deviceID}
+	</select>
+
+	<delete id="deleteHisDHData">
+		delete from t_ig_send_his_dhdata
+	</delete>
+
+</mapper>

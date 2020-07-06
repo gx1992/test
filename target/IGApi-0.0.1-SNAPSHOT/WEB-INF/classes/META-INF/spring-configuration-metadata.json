@@ -1,0 +1,145 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "name": "dooraccess",
+      "type": "com.cn.uk.config.DoorAccessConfig"
+    },
+    {
+      "sourceType": "com.cn.uk.config.ChildReadConfig",
+      "name": "getchildstation",
+      "type": "com.cn.uk.config.ChildReadConfig"
+    },
+    {
+      "sourceType": "com.cn.uk.config.WebServiceConfig",
+      "name": "launwebservice",
+      "type": "com.cn.uk.config.WebServiceConfig"
+    },
+    {
+      "sourceType": "com.cn.uk.config.LnWebServiceConfig",
+      "name": "lunengwebservice",
+      "type": "com.cn.uk.config.LnWebServiceConfig"
+    },
+    {
+      "sourceType": "com.cn.uk.config.SmartGatewayConfig",
+      "name": "smartgateway",
+      "type": "com.cn.uk.config.SmartGatewayConfig"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "defaultValue": false,
+      "name": "dooraccess.allow",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "name": "dooraccess.api-base-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "name": "dooraccess.ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "name": "dooraccess.pass-word",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "defaultValue": 0,
+      "name": "dooraccess.photo-port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "defaultValue": 0,
+      "name": "dooraccess.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cn.uk.config.DoorAccessConfig",
+      "name": "dooraccess.user-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.ChildReadConfig",
+      "name": "getchildstation.ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.ChildReadConfig",
+      "defaultValue": 0,
+      "name": "getchildstation.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.cn.uk.config.ChildReadConfig",
+      "name": "getchildstation.test-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.WebServiceConfig",
+      "name": "launwebservice.child-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.WebServiceConfig",
+      "defaultValue": false,
+      "name": "launwebservice.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cn.uk.config.WebServiceConfig",
+      "name": "launwebservice.ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.WebServiceConfig",
+      "name": "launwebservice.port",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.LnWebServiceConfig",
+      "name": "lunengwebservice.child-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.LnWebServiceConfig",
+      "defaultValue": false,
+      "name": "lunengwebservice.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cn.uk.config.LnWebServiceConfig",
+      "name": "lunengwebservice.ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.LnWebServiceConfig",
+      "name": "lunengwebservice.port",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.SmartGatewayConfig",
+      "defaultValue": false,
+      "name": "smartgateway.allow",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.cn.uk.config.SmartGatewayConfig",
+      "name": "smartgateway.ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.cn.uk.config.SmartGatewayConfig",
+      "defaultValue": 0,
+      "name": "smartgateway.port",
+      "type": "java.lang.Integer"
+    }
+  ]
+}

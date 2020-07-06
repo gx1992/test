@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.uk.dao.RealVideoDao">
+
+
+	<select id="queryCameraTotal" parameterType="java.util.HashMap" resultType="int">
+		select
+		count(1)
+		from t_ig_camera
+		where 1=1
+		<if test="cameraNo!= null and cameraNo != ''">
+			and camera_no =#{cameraNo}
+		</if>
+	</select>
+	<select id="queryCamera" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select
+		camera_no as cameraNo,
+		camera_name as cameraName,
+		camera_manufacturer as manufacturer,
+		camera_model as model,
+		camera_ip as ip,
+		sdk_port as port,
+		type,
+		status
+		from t_ig_camera
+		where 1=1
+		<if test="cameraNo!= null and cameraNo != ''">
+			and camera_no =#{cameraNo}
+ 		</if>
+		<if test="pageIndex!= null and pageIndex != ''">
+			limit ${(pageIndex-1)*pageSize},${pageSize};
+		</if>
+
+	</select>
+	<select id="querynvrTotal" parameterType="java.util.HashMap" resultType="int">
+		select
+		count(1)
+		from
+		t_ig_nvr
+		where 1=1
+		<if test="nvrNo!= null and nvrNo != ''">
+			and nvr_no =#{nvrNo}
+		</if>
+	</select>
+	<select id="querynvr" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select
+		nvr_no as  nvrNo,
+		nvr_name as nvrName,
+		nvr_manufacturer as manufacturer,
+		nvr_model as model,
+		nvr_ip as ip,
+		nvr_sdk_port as port
+		from
+		t_ig_nvr
+		where 1=1
+		<if test="nvrNo!= null and nvrNo != ''">
+			and nvr_no =#{nvrNo}
+		</if>
+		<if test="pageIndex!= null and pageIndex != ''">
+			limit ${(pageIndex-1)*pageSize},${pageSize};
+		</if>
+	</select>
+
+	<select id="querynvrchannelTotal" parameterType="java.util.HashMap" resultType="int">
+		select
+		count(1)
+		from
+		t_ig_nvr_channel
+		where 1=1
+		<if test="nvrNo!= null and nvrNo != ''">
+			and nvr_no =#{nvrNo}
+		</if>
+	</select>
+	<select id="querynvrchannel" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select
+			nvr_no as nvrNo,
+			chn_no as channelNo,
+			chn_name as channelName,
+			camera_no as cameraNo
+			from
+			t_ig_nvr_channel
+		where 1=1
+		<if test="nvrNo!= null and nvrNo != ''">
+			and nvr_no =#{nvrNo}
+		</if>
+		<if test="pageIndex!= null and pageIndex != ''">
+			limit ${(pageIndex-1)*pageSize},${pageSize};
+		</if>
+
+	</select>
+
+</mapper>

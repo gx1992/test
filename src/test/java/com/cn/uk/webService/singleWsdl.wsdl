@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="SubstationPlatformImplService" targetNamespace="http://ws.substation.com/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://ws.substation.com/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://ws.substation.com/"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="camera_file_control">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jcamera_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jcamera_control_mode" type="xs:int"/>
+                        <xs:element minOccurs="0" name="user_name" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="camera_file_controlResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="file_name" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_data">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_dataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jrt_device_rl_para" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="camera_control">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jcamera_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jcamera_run_mode" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jfocus" type="xs:int"/>
+                        <xs:element minOccurs="0" name="param" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="camera_controlResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="robot_mode_type">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jmode_type" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="robot_mode_typeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="type" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_task_templet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jdb_action_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jtask" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jlink_list" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="type_list" nillable="true" type="q1:ArrayOfstring"
+                                    xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <xs:element minOccurs="0" name="area_list" nillable="true" type="q2:ArrayOfstring"
+                                    xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_task_templetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="robot_remote_control">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jmotor" type="xs:int"/>
+                        <xs:element minOccurs="0" name="linear_velocity" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="angular_velocity" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="robot_remote_controlResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return_remote_control" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_body_alarm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="q3:ArrayOfstring"
+                                    xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <xs:element minOccurs="0" name="review_state" nillable="true" type="q4:ArrayOfstring"
+                                    xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_body_alarmResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jevent_rl_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_finish_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_finish_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jtask_data_rl_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_setting_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jsetting_info" type="xs:int"/>
+                        <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_setting_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_task_templet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_task_templetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jtask_link" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="platform_remote_control">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jcamera_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jyuntai" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="platform_remote_controlResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return_remote_control" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_device_patrolled">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jdevice_level" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_device_patrolledResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jdevice_extras" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_fault_value">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_fault_valueResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jalarm_data_rl_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_path">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_name" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_pathResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jmap_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_files">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jfolder_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="file_type" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_patrol_filesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="is_finished" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_device_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_device_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jrobot_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_alarm_confirm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jdevice_w_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_alarm_confirmResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_task_edit">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="task_name" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="task_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jtask_state" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_task_editResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="control">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jcontrol" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="controlResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_plan_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_plan_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jtask_plan_info_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_robot_control_map">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="jtask_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="jpoint_type" type="xs:int"/>
+                        <xs:element minOccurs="0" name="id_list" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="is_need_return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="send_robot_control_mapResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="res_conf" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_micro_climate">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="start_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="end_time" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_micro_climateResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jrt_station_rl_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_location">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_locationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_location" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_body_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_robot_body_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jrobot_body_info" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_current_info">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="substation_id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="robot_mac" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_search_task_current_infoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="jtask_rl_list" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified"
+                   targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+            <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+            <xs:element name="byte" nillable="true" type="xs:byte"/>
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+            <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+            <xs:element name="double" nillable="true" type="xs:double"/>
+            <xs:element name="float" nillable="true" type="xs:float"/>
+            <xs:element name="int" nillable="true" type="xs:int"/>
+            <xs:element name="long" nillable="true" type="xs:long"/>
+            <xs:element name="QName" nillable="true" type="xs:QName"/>
+            <xs:element name="short" nillable="true" type="xs:short"/>
+            <xs:element name="string" nillable="true" type="xs:string"/>
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+            <xs:element name="char" nillable="true" type="tns:char"/>
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int"/>
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration"/>
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid"/>
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName"/>
+            <xs:attribute name="Id" type="xs:ID"/>
+            <xs:attribute name="Ref" type="xs:IDREF"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified"
+                   targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            <xs:complexType name="ArrayOfstring">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="SubstationPlatform_camera_file_control_InputMessage">
+        <wsdl:part name="parameters" element="tns:camera_file_control"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_camera_file_control_OutputMessage">
+        <wsdl:part name="parameters" element="tns:camera_file_controlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_data_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_data"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_data_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_dataResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_camera_control_InputMessage">
+        <wsdl:part name="parameters" element="tns:camera_control"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_camera_control_OutputMessage">
+        <wsdl:part name="parameters" element="tns:camera_controlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_robot_mode_type_InputMessage">
+        <wsdl:part name="parameters" element="tns:robot_mode_type"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_robot_mode_type_OutputMessage">
+        <wsdl:part name="parameters" element="tns:robot_mode_typeResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_task_templet_InputMessage">
+        <wsdl:part name="parameters" element="tns:send_task_templet"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_task_templet_OutputMessage">
+        <wsdl:part name="parameters" element="tns:send_task_templetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_robot_remote_control_InputMessage">
+        <wsdl:part name="parameters" element="tns:robot_remote_control"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_robot_remote_control_OutputMessage">
+        <wsdl:part name="parameters" element="tns:robot_remote_controlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_body_alarm_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_body_alarm"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_body_alarm_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_body_alarmResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_finish_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_finish_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_finish_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_finish_infoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_setting_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:send_setting_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_setting_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:send_setting_infoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_task_templet_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_task_templet"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_task_templet_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_task_templetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_platform_remote_control_InputMessage">
+        <wsdl:part name="parameters" element="tns:platform_remote_control"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_platform_remote_control_OutputMessage">
+        <wsdl:part name="parameters" element="tns:platform_remote_controlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_device_patrolled_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_device_patrolled"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_device_patrolled_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_device_patrolledResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_fault_value_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_fault_value"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_fault_value_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_fault_valueResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_path_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_path"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_path_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_pathResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_files_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_files"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_patrol_files_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_patrol_filesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_device_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_device_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_device_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_device_infoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_alarm_confirm_InputMessage">
+        <wsdl:part name="parameters" element="tns:send_alarm_confirm"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_alarm_confirm_OutputMessage">
+        <wsdl:part name="parameters" element="tns:send_alarm_confirmResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_task_edit_InputMessage">
+        <wsdl:part name="parameters" element="tns:send_task_edit"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_task_edit_OutputMessage">
+        <wsdl:part name="parameters" element="tns:send_task_editResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_control_InputMessage">
+        <wsdl:part name="parameters" element="tns:control"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_control_OutputMessage">
+        <wsdl:part name="parameters" element="tns:controlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_plan_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_plan_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_plan_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_plan_infoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_robot_control_map_InputMessage">
+        <wsdl:part name="parameters" element="tns:send_robot_control_map"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_send_robot_control_map_OutputMessage">
+        <wsdl:part name="parameters" element="tns:send_robot_control_mapResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_micro_climate_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_micro_climate"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_micro_climate_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_micro_climateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_location_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_location"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_location_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_locationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_body_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_body_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_robot_body_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_robot_body_infoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_current_info_InputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_current_info"/>
+    </wsdl:message>
+    <wsdl:message name="SubstationPlatform_get_search_task_current_info_OutputMessage">
+        <wsdl:part name="parameters" element="tns:get_search_task_current_infoResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="SubstationPlatform">
+        <wsdl:operation name="camera_file_control">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/camera_file_control"
+                        message="tns:SubstationPlatform_camera_file_control_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/camera_file_controlResponse"
+                         message="tns:SubstationPlatform_camera_file_control_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_data">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_data"
+                        message="tns:SubstationPlatform_get_patrol_data_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_dataResponse"
+                         message="tns:SubstationPlatform_get_patrol_data_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="camera_control">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/camera_control"
+                        message="tns:SubstationPlatform_camera_control_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/camera_controlResponse"
+                         message="tns:SubstationPlatform_camera_control_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="robot_mode_type">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/robot_mode_type"
+                        message="tns:SubstationPlatform_robot_mode_type_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/robot_mode_typeResponse"
+                         message="tns:SubstationPlatform_robot_mode_type_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="send_task_templet">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/send_task_templet"
+                        message="tns:SubstationPlatform_send_task_templet_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/send_task_templetResponse"
+                         message="tns:SubstationPlatform_send_task_templet_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="robot_remote_control">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/robot_remote_control"
+                        message="tns:SubstationPlatform_robot_remote_control_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/robot_remote_controlResponse"
+                         message="tns:SubstationPlatform_robot_remote_control_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_body_alarm">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_body_alarm"
+                        message="tns:SubstationPlatform_get_body_alarm_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_body_alarmResponse"
+                         message="tns:SubstationPlatform_get_body_alarm_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_finish_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_finish_info"
+                        message="tns:SubstationPlatform_get_search_task_finish_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_finish_infoResponse"
+                         message="tns:SubstationPlatform_get_search_task_finish_info_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="send_setting_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/send_setting_info"
+                        message="tns:SubstationPlatform_send_setting_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/send_setting_infoResponse"
+                         message="tns:SubstationPlatform_send_setting_info_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_task_templet">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_task_templet"
+                        message="tns:SubstationPlatform_get_task_templet_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_task_templetResponse"
+                         message="tns:SubstationPlatform_get_task_templet_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="platform_remote_control">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/platform_remote_control"
+                        message="tns:SubstationPlatform_platform_remote_control_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/platform_remote_controlResponse"
+                         message="tns:SubstationPlatform_platform_remote_control_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_device_patrolled">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_device_patrolled"
+                        message="tns:SubstationPlatform_get_device_patrolled_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_device_patrolledResponse"
+                         message="tns:SubstationPlatform_get_device_patrolled_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_fault_value">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_fault_value"
+                        message="tns:SubstationPlatform_get_fault_value_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_fault_valueResponse"
+                         message="tns:SubstationPlatform_get_fault_value_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_path">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_path"
+                        message="tns:SubstationPlatform_get_patrol_path_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_pathResponse"
+                         message="tns:SubstationPlatform_get_patrol_path_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_files">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_files"
+                        message="tns:SubstationPlatform_get_patrol_files_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_patrol_filesResponse"
+                         message="tns:SubstationPlatform_get_patrol_files_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_device_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_device_info"
+                        message="tns:SubstationPlatform_get_robot_device_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_device_infoResponse"
+                         message="tns:SubstationPlatform_get_robot_device_info_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="send_alarm_confirm">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/send_alarm_confirm"
+                        message="tns:SubstationPlatform_send_alarm_confirm_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/send_alarm_confirmResponse"
+                         message="tns:SubstationPlatform_send_alarm_confirm_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="send_task_edit">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/send_task_edit"
+                        message="tns:SubstationPlatform_send_task_edit_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/send_task_editResponse"
+                         message="tns:SubstationPlatform_send_task_edit_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="control">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/control"
+                        message="tns:SubstationPlatform_control_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/controlResponse"
+                         message="tns:SubstationPlatform_control_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_plan_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_plan_info"
+                        message="tns:SubstationPlatform_get_search_task_plan_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_plan_infoResponse"
+                         message="tns:SubstationPlatform_get_search_task_plan_info_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="send_robot_control_map">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/send_robot_control_map"
+                        message="tns:SubstationPlatform_send_robot_control_map_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/send_robot_control_mapResponse"
+                         message="tns:SubstationPlatform_send_robot_control_map_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_micro_climate">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_micro_climate"
+                        message="tns:SubstationPlatform_get_micro_climate_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_micro_climateResponse"
+                         message="tns:SubstationPlatform_get_micro_climate_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_location">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_location"
+                        message="tns:SubstationPlatform_get_robot_location_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_locationResponse"
+                         message="tns:SubstationPlatform_get_robot_location_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_body_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_body_info"
+                        message="tns:SubstationPlatform_get_robot_body_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_robot_body_infoResponse"
+                         message="tns:SubstationPlatform_get_robot_body_info_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_current_info">
+            <wsdl:input wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_current_info"
+                        message="tns:SubstationPlatform_get_search_task_current_info_InputMessage"/>
+            <wsdl:output wsaw:Action="http://ws.substation.com/SubstationPlatform/get_search_task_current_infoResponse"
+                         message="tns:SubstationPlatform_get_search_task_current_info_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_SubstationPlatform" type="tns:SubstationPlatform">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="camera_file_control">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/camera_file_control"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_data">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_patrol_data"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="camera_control">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/camera_control" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="robot_mode_type">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/robot_mode_type"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="send_task_templet">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/send_task_templet"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="robot_remote_control">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/robot_remote_control"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_body_alarm">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_body_alarm" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_finish_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_search_task_finish_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="send_setting_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/send_setting_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_task_templet">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_task_templet"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="platform_remote_control">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/platform_remote_control"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_device_patrolled">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_device_patrolled"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_fault_value">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_fault_value"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_path">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_patrol_path"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_patrol_files">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_patrol_files"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_device_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_robot_device_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="send_alarm_confirm">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/send_alarm_confirm"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="send_task_edit">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/send_task_edit" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="control">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/control" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_plan_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_search_task_plan_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="send_robot_control_map">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/send_robot_control_map"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_micro_climate">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_micro_climate"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_location">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_robot_location"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_robot_body_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_robot_body_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_search_task_current_info">
+            <soap12:operation soapAction="http://ws.substation.com/SubstationPlatform/get_search_task_current_info"
+                              style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SubstationPlatformImplService">
+        <wsdl:port name="BasicHttpBinding_SubstationPlatform" binding="tns:BasicHttpBinding_SubstationPlatform">
+            <soap12:address location="http://127.0.0.1:9523/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/tips.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-table.min.css">
+<title>图片查看</title>
+<style>
+
+.page-btn {
+    width: 440px;
+    margin: 0 auto;
+}
+#input1,#input2{
+	text-align: center;
+	color:white;
+}
+#dd1{
+	overflow-y: auto;
+	height:300px;
+	width: 160px;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar  
+{  
+    width: 8px;  /*滚动条宽度*/
+    height: 8px;  /*滚动条高度*/
+    background-color: rgb(8,35,78);
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);  
+    border-radius: 6px;  /*滚动条的背景区域的圆角*/
+    background-color: #0c3670;
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 6px;  /*滚动条的圆角*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #1257b4;  /*滚动条的背景颜色*/
+} 
+.tpbox1 .tpcont-com{
+	height:88%;
+	}
+
+.select dd{
+background-color: #F5F5F5
+}
+.select dt{
+	background: rgba(255,255,255,.1) url(../js/arrow.png) no-repeat 135px center;
+	width:160px;
+	color:black;
+	border: 1px solid rgba(0,0,0,.4);
+}
+.sel-span{
+	color:black;
+}
+a{
+	color:black;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tpbox1">
+    <div class="tpcont">
+    	<div class="tpcont-left"></div>
+        <div class="tpcont-cent">
+        	<div class="tpcont-tit">
+            	<div class="tit-left">
+                    <div class="sel-div" >
+                        <span class="sel-span">识别类型：</span>
+                        <dl class="select">
+                            <dt>全部</dt>
+                            <dd id="dd1">
+                            	<ul>
+                            		<li><a href="#" title="">全部</a></li>
+	                            	<li><a href="#" title="bj_bpmh">表计表盘模糊</a></li>
+                            	 	<li><a href="#" title="bj_bpps">表计表盘破损</a></li>
+									<li><a href="#" title="bj_wkps">表计外壳破损</a></li>
+									<li><a href="#" title="jyz_lw">绝缘子裂纹</a></li>
+									<li><a href="#" title="jyz_pl">绝缘子破裂</a></li>
+									<li><a href="#" title="sly_bjbmyw">部件表面油污</a></li>
+									<li><a href="#" title="sly_dmyw">地面油污</a></li>
+									<li><a href="#" title="jsxs">金属锈蚀</a></li>
+									<li><a href="#" title="hxq_gjtps">硅胶筒破损</a></li>
+									<li><a href="#" title="xmbhyc">项目闭合异常</a></li>
+									<li><a href="#" title="yw_gkxfw">异物-高空悬浮物</a></li>
+									<li><a href="#" title="yw_nc">异物-鸟巢</a></li>
+									<li><a href="#" title="mcqdmsh">门窗墙地面损坏</a></li>
+									<li><a href="#" title="gbps">盖板破损或缺失</a></li>
+									<li><a href="#" title="gjptwss">构架爬梯未上锁</a></li>
+									<li><a href="#" title="bmwh">表面污秽</a></li>
+									<li><a href="#" title="yxcr">越线闯入</a></li>
+									<li><a href="#" title="wcaqm">未穿安全帽</a></li>
+									<li><a href="#" title="wcgz">未穿工装</a></li>
+									<li><a href="#" title="xy">吸烟</a></li>
+									<li><a href="#" title="bjdsyc">表计读数异常</a></li>
+									<li><a href="#" title="ywzt_yfyc">油位状态油封异常</a></li>
+									<li><a href="#" title="hxq_gjbs">呼吸器硅胶变色</a></li>
+									<li><a href="#" title="kgg_ybh">压板合</a></li>
+									<li><a href="#" title="kgg_ybf">压板分</a></li>
+									<li><a href="#" title="hxq_gjzc">呼吸器硅胶正常</a></li>
+									<li><a href="#" title="xmbhzc">箱门闭合正常</a></li>
+									<li><a href="#" title="aqmzc">安全帽正常</a></li>
+									<li><a href="#" title="gzzc">工装正常</a></li>
+									<li><a href="#" title="aqszc">安全绳正常</a></li>
+									<li><a href="#" title="dthtps">导体护套破损</a></li>
+									<li><a href="#" title="yxdghsg">引线断股或松股</a></li>
+									<li><a href="#" title="wpdaqs">未佩戴安全绳</a></li>
+									<li><a href="#" title="rydd">人员倒地</a></li>
+									<li><a href="#" title="hzyw">火灾烟雾</a></li>
+									<li><a href="#" title="sndmjs">室内地面积水</a></li>
+									<li><a href="#" title="qmls">墙面漏水</a></li>
+									<li><a href="#" title="wdls">屋顶漏水</a></li>
+									<li><a href="#" title="xdwcr">小动物闯入</a></li>
+									<li><a href="#" title="ywzt_ywzsjyc">油位指示计异常</a></li>
+									<li><a href="#" title="hxq_yfps">呼吸器油封破损</a></li>
+									<li><a href="#"  title="bj">表计</a></li>
+                            	</ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="lastdiv"></div>
+            </div>       
+            <div class="tpcont-com">
+            <table id="mytab" class="table table-bordered  table-striped table-hover text-center" ></table>
+            	<!-- <table class="search-tab" cellpadding="0" cellspacing="0" border="0" style="height:400px;overflow: auto;">
+                	<thead>
+                    	<tr>
+						<td>序号</td>
+						<td>识别类型</td>
+						<td>保存时间</td>
+						<td>图片缩略图</td>
+						<td>描述</td>
+						</tr>
+                    </thead>
+                    <tbody >
+                    </tbody>
+                </table> -->
+            </div>      
+        </div>
+        <div class="tpcont-right"></div>
+     </div>
+     <div class="tpbot">
+    	<div class="tpbot-left"></div>
+        <div class="tpbot-cent"></div>
+        <div class="tpbot-right"></div>
+    </div>
+</div>
+
+
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript">
+		var type="";
+		$(document).ready(function() {
+			
+			
+			$(".select").each(function(){
+				var s=$(this);
+				var z=parseInt(s.css("z-index"));
+				var dt=$(this).children("dt");
+				var dd=$(this).children("dd");
+				var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};   //展开效果
+				var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};    //关闭效果
+				dt.click(function(){dd.is(":hidden")?_show():_hide();});
+				dd.find("a").click(function(){				
+					dt.html($(this).html());_hide();
+					
+					type = $(this).attr("title");
+					
+					$("#mytab").bootstrapTable('refresh');
+				
+				
+				});     //选择效果（如需要传值，可自定义参数，在此处返回对应的“value”值 ）
+				$("body").click(function(i){ !$(i.target).parents(".select").first().is(s) ? _hide():"";});
+			})
+
+				//初始
+				
+				//查询按钮事件
+/* 		$("#mytab").bootstrapTable('destroy');
+ */		$('#mytab').bootstrapTable({
+			method : 'get',
+			url : "/IGApi/show",//请求路径
+			striped : true, //是否显示行间隔色
+			pageNumber : 1, //初始化加载第一页
+			pagination : true,//是否分页
+			sortable: true,                     //是否启用排序
+			sidePagination : 'server',//server:服务器端分页|client：前端分页
+			pageSize : 10,//单页记录数
+			pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
+			showRefresh : false,//刷新按钮
+			height: 900,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+	        uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	        showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+	        cardView: false,                    //是否显示详细视图
+	        detailView: false,                   //是否显示父子表	
+	        clickToSelect: true,
+	        smartDisplay:false,
+	        queryParamsType: 'limit',
+	        onClickRow:function (row,$element) {
+	            $('.info').removeClass('info');
+	            $($element).addClass('info');
+	            //selected_userSn = row.user_sn
+	            console.info("sss:"+row.user_sn);
+	        },
+	        queryParams : function(params) {//上传服务器的参数
+				var temp = {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
+					pageSize : params.limit, // 每页显示数量
+					pageIndex : params.offset, // SQL语句起始索引
+					type : type,
+					sort: params.sort,      //排序列名  
+	                sortOrder: params.order //排位命令（desc，asc）
+				};
+				return temp;
+			},
+			
+			
+			columns : [  {
+		        title: '序号',
+		        field: '',
+		        align: 'center',
+		        formatter: function (value, row, index) {
+		            var pageSize = $('#mytab').bootstrapTable('getOptions').pageSize;     //通过table的#id 得到每页多少条
+		            var pageNumber = $('#mytab').bootstrapTable('getOptions').pageNumber; //通过table的#id 得到当前第几页
+		            return pageSize * (pageNumber - 1) + index + 1;    // 返回每条的序号： 每页条数 *（当前页 - 1 ）+ 序号
+		        }
+		    },{
+				title : '识别类型',
+				field : 'alarm_name',
+				halign:'center',
+				sortable : true
+			},   {
+				title : '时间',
+				field : 'n_date',
+				halign:'center',
+				sortable : true
+			}/* , {
+				title : '图片地址',
+				field : 'pic_url',
+				halign:'center'
+			}, */
+			,{
+                field: "url", align: "center", title: "图片缩略图", formatter: function (value, row, index) {
+                    var image = '<div class="photos">'
+                        + '<a target="_blank" href="/IGApi/' + row.pic_url + '"><img style="width: 120px;height: 60px;margin: auto" alt="image" class="feed-photo" src="/IGApi/' + row.pic_url + '"></img></a>'
+                        + '</div>';
+                    return image;
+                }
+            },
+			
+			
+			
+			{
+				title : '描述',
+				field : 'remark',
+				halign:'center',
+				sortable : true
+			}]
+		});
+				
+				
+				
+				
+				/* $.ajax({ 
+					url: "/show", 
+					data:{type:""},
+					success: function(res){
+						
+						if(res!=null){
+							var html="";
+							for(var i=0;i<res.data.length;i++){
+								
+								html+="<tr><td>"+i+"</td><td>"+res.data[i].alarm_name+"</td><td>"+res.data[i].run_time+"</td>"
+									+"<td><a title='点击放大' target='_blank' href='/"+res.data[i].pic_url+"'><img width=100px height=100px src='/"+res.data[i].pic_url+"'/></a></td>"
+									+"<td>"+res.data[i].remark+"</td>"
+									+"</tr>";
+							}
+							$("tbody").html(html);
+						}
+						
+			        
+			      	}
+				}); */
+			
+
+		});
+		
+		
+
+	</script>
+</body>
+</html>

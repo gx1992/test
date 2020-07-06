@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.uk.dao.UserDao">
+
+
+	<select id="getByAccessToken" parameterType="java.util.HashMap"
+		resultType="User">
+		
+		select token,
+		login_time from t_ig_master_user
+		where token = #{token} 
+
+	</select>
+
+	<select id="isLogin" parameterType="java.util.HashMap"
+		resultType="User">
+		select musr_code,musr_pwd,token,login_time,token_valid_minutes from t_ig_master_user
+		where musr_code =#{musr_code} 
+	</select>
+
+	<update id="updateLoginTime" parameterType="java.util.HashMap">
+		update t_ig_master_user set
+		token =#{token}
+		<if test="token_valid_minutes !=null || token_valid_minutes!=''">
+			,token_valid_minutes = #{token_valid_minutes}
+		</if>
+		<if test="login_time!='' || login_time!=null">
+			,login_time = #{login_time}
+		</if>
+		where musr_code = #{musr_code}
+
+	</update>
+
+	<select id="getToken" parameterType="int" resultType="User">
+		select * from T_IG_MASTER_USER where musr_code = #{musr_code}
+	</select>
+
+
+	<select id="getMessageHistorys"
+		parameterType="java.util.HashMap" resultType="PlanItems">
+		select
+		t.plan_no,t.run_time,t.item_no,t.pic_url,t.video_url,t.alarm_pic_urls,t1.alarm_key,t1.alarm_name
+		from t_ig_his_plan_item t left join t_ig_alarm_define t1 on
+		t.alarm_no=t1.alarm_no where t1.alarm_key = #{msgType} and t.run_time		
+		&gt;= #{startTime} and t.run_time &lt;= #{endTime}
+		order by t.run_time desc
+		limit #{startIndex},#{endIndex}
+
+	</select>
+
+	<select id="countHistorysData" parameterType="java.util.HashMap"  resultType="int" >
+		select count(t.plan_no)
+		from t_ig_his_plan_item t left join t_ig_alarm_define t1 on
+		t.alarm_no=t1.alarm_no where t1.alarm_key = #{msgType} and t.run_time		
+		&gt;= #{startTime} and t.run_time &lt;= #{endTime}
+	</select>
+
+	<select id="getImagesUrl" parameterType="java.util.HashMap"  resultType="ShowImages" >
+		select t1.alarm_name,t.run_time,t.pic_url,t1.remark from t_ig_his_plan_item t left join t_ig_alarm_define t1
+		on t.alarm_no=t1.alarm_no
+		where 1=1
+		<if test="type!=null and type!=''">
+			and	t1.alarm_key = #{type}
+		</if>
+		order by t.run_time desc
+		limit #{pageIndex},#{pageSize}
+
+	</select>
+	
+	
+	<select id="getTotal" parameterType="java.util.HashMap" resultType="int">
+		select count(1) from t_ig_his_plan_item t left join t_ig_alarm_define t1
+		on t.alarm_no=t1.alarm_no
+		where 1=1
+		<if test="type!=null and type!=''">
+			and	t1.alarm_key = #{type}
+		</if>
+		order by t.run_time desc
+	</select>
+
+</mapper>
